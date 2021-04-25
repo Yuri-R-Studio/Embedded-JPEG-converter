@@ -13,6 +13,11 @@
 // limitations under the License.
 #include "esp_jpg_decode.h"
 
+#ifdef WINDOWS
+#include "tjpgd.h"
+#include "custom_types.h"
+static const char* TAG = "esp_jpg_decode";
+#else
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+
 #if CONFIG_IDF_TARGET_ESP32 // ESP32/PICO-D4
@@ -30,6 +35,7 @@
 #else
 #include "esp_log.h"
 static const char* TAG = "esp_jpg_decode";
+#endif
 #endif
 
 typedef struct {

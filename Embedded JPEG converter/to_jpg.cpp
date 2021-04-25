@@ -13,14 +13,18 @@
 // limitations under the License.
 #include <stddef.h>
 #include <string.h>
-#include "esp_attr.h"
-#include "soc/efuse_reg.h"
-#include "esp_heap_caps.h"
-#include "esp_camera.h"
 #include "img_converters.h"
 #include "jpge.h"
 #include "yuv.h"
 
+#ifdef WINDOWS
+#include "custom_types.h"
+static const char* TAG = "to_jpg";
+#else
+#include "esp_attr.h"
+#include "soc/efuse_reg.h"
+#include "esp_heap_caps.h"
+#include "esp_camera.h"
 #include "esp_system.h"
 #ifdef ESP_IDF_VERSION_MAJOR // IDF 4+
 #if CONFIG_IDF_TARGET_ESP32 // ESP32/PICO-D4
@@ -39,6 +43,8 @@
 #include "esp_log.h"
 static const char* TAG = "to_jpg";
 #endif
+#endif // WINDOWS
+
 
 static void *_malloc(size_t size)
 {
@@ -46,10 +52,19 @@ static void *_malloc(size_t size)
     if(res) {
         return res;
     }
+#ifdef WINDOWS
+    return malloc(size);
+#else
     return heap_caps_malloc(size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+#endif // WINDOWS
+
 }
 
+#ifdef WINDOWS
+static void convert_line_format(uint8_t * src, pixformat_t format, uint8_t * dst, size_t width, size_t in_channels, size_t line)
+#else
 static IRAM_ATTR void convert_line_format(uint8_t * src, pixformat_t format, uint8_t * dst, size_t width, size_t in_channels, size_t line)
+#endif // WINDOWS
 {
     int i=0, o=0, l=0;
     if(format == PIXFORMAT_GRAYSCALE) {
@@ -184,7 +199,7 @@ protected:
     size_t max_len, index;
 
 public:
-    memory_stream(void *pBuf, uint buf_size) : out_buf(static_cast<uint8_t*>(pBuf)), max_len(buf_size), index(0) { }
+    memory_stream(void *pBuf, unsigned int buf_size) : out_buf(static_cast<uint8_t*>(pBuf)), max_len(buf_size), index(0) { }
 
     virtual ~memory_stream() { }
 
@@ -239,3 +254,8 @@ bool frame2jpg(camera_fb_t * fb, uint8_t quality, uint8_t ** out, size_t * out_l
 {
     return fmt2jpg(fb->buf, fb->len, fb->width, fb->height, fb->format, quality, out, out_len);
 }
+
+#ifdef WINDOWS
+#else
+
+#endif // WINDOWS

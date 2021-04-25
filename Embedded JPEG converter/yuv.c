@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include "yuv.h"
+#ifndef WINDOWS
 #include "esp_attr.h"
+#endif // !WINDOWS
 
 typedef struct {
         int16_t vY;
@@ -284,7 +286,11 @@ static const yuv_table_row yuv_table[256] = {
 
 #define YUYV_CONSTRAIN(v) ((v)<0)?0:(((v)>255)?255:(v))
 
+#ifdef WINDOWS
+void yuv2rgb(uint8_t y, uint8_t u, uint8_t v, uint8_t *r, uint8_t *g, uint8_t *b)
+#else
 void IRAM_ATTR yuv2rgb(uint8_t y, uint8_t u, uint8_t v, uint8_t *r, uint8_t *g, uint8_t *b)
+#endif // WINDOWS
 {
     int16_t ri, gi, bi;
 

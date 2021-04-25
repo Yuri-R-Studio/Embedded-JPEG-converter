@@ -14,20 +14,28 @@
 #include <stddef.h>
 #include <string.h>
 #include "img_converters.h"
+
+#ifndef WINDOWS
 #include "esp_spiram.h"
 #include "soc/efuse_reg.h"
 #include "esp_heap_caps.h"
-#include "yuv.h"
 #include "sdkconfig.h"
+#endif // WINDOWS
+
+#include "yuv.h"
 #include "esp_jpg_decode.h"
 
+#ifdef WINDOWS
+static const char* TAG = "to_bmp";
+#else
 #if defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_ARDUHAL_ESP_LOG)
 #include "esp32-hal-log.h"
 #define TAG ""
 #else
 #include "esp_log.h"
-static const char* TAG = "to_bmp";
 #endif
+#endif // WINDOWS
+
 
 static const int BMP_HEADER_LEN = 54;
 
@@ -58,7 +66,11 @@ typedef struct {
 
 static void *_malloc(size_t size)
 {
+#ifdef WINDOWS
+    return malloc(size);
+#else
     return heap_caps_malloc(size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+#endif // WINDOWS
 }
 
 //output buffer and image width

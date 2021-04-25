@@ -18,39 +18,42 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\esp_jpg_decode.c">
+    <ClCompile Include="to_jpg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\jpge.cpp">
+    <ClCompile Include="tjpgd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tjpgd.c">
+    <ClCompile Include="to_bmp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\to_bmp.c">
+    <ClCompile Include="yuv.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\to_jpg.cpp">
+    <ClCompile Include="jpge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\yuv.c">
+    <ClCompile Include="esp_jpg_decode.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\esp_jpg_decode.h">
+    <ClInclude Include="img_converters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\img_converters.h">
+    <ClInclude Include="jpge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\jpge.h">
+    <ClInclude Include="tjpgd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tjpgd.h">
+    <ClInclude Include="yuv.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\yuv.h">
+    <ClInclude Include="esp_jpg_decode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="custom_types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

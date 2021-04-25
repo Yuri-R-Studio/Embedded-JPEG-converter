@@ -114,8 +114,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_DEBUG;WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,20 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="esp_jpg_decode.c" />
+    <ClCompile Include="jpge.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\esp_jpg_decode.c" />
-    <ClCompile Include="src\jpge.cpp" />
-    <ClCompile Include="src\tjpgd.c" />
-    <ClCompile Include="src\to_bmp.c" />
-    <ClCompile Include="src\to_jpg.cpp" />
-    <ClCompile Include="src\yuv.c" />
+    <ClCompile Include="tjpgd.c" />
+    <ClCompile Include="to_bmp.c" />
+    <ClCompile Include="to_jpg.cpp" />
+    <ClCompile Include="yuv.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\esp_jpg_decode.h" />
-    <ClInclude Include="include\img_converters.h" />
-    <ClInclude Include="include\jpge.h" />
-    <ClInclude Include="include\tjpgd.h" />
-    <ClInclude Include="include\yuv.h" />
+    <ClInclude Include="custom_types.h" />
+    <ClInclude Include="esp_jpg_decode.h" />
+    <ClInclude Include="img_converters.h" />
+    <ClInclude Include="jpge.h" />
+    <ClInclude Include="tjpgd.h" />
+    <ClInclude Include="yuv.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

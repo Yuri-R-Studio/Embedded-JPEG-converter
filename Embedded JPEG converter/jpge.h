@@ -47,7 +47,7 @@ namespace jpge
         public:
             virtual ~output_stream() { };
             virtual bool put_buf(const void* Pbuf, int len) = 0;
-            virtual uint get_size() const = 0;
+            virtual size_t get_size() const = 0;
     };
     
     // Lower level jpeg_encoder class - useful if more control is needed than the above helper functions.
