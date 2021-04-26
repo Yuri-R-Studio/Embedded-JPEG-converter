@@ -192,7 +192,6 @@ bool frame2jpg_cb(camera_fb_t * fb, uint8_t quality, jpg_out_cb cb, void * arg)
 }
 
 
-
 class memory_stream : public jpge::output_stream {
 protected:
     uint8_t *out_buf;
@@ -254,8 +253,3 @@ bool frame2jpg(camera_fb_t * fb, uint8_t quality, uint8_t ** out, size_t * out_l
 {
     return fmt2jpg(fb->buf, fb->len, fb->width, fb->height, fb->format, quality, out, out_len);
 }
-
-#ifdef WINDOWS
-#else
-
-#endif // WINDOWS

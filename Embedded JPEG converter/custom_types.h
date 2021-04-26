@@ -68,4 +68,15 @@ typedef struct {
     pixformat_t format;         /*!< Format of the pixel data */
 } camera_fb_t;
 
+static FILE *file;
+
+static size_t jpg_encode_file(void * arg, size_t index, const void* data, size_t len)
+{
+
+
+  //  fseek(file, index * len, 0);
+    size_t result = fwrite(data, len, 1, file);
+    
+    return result;
+}
 #endif // CUSTOM_TYPES

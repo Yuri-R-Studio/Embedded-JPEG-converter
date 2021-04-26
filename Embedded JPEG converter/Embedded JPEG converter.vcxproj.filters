@@ -56,5 +56,8 @@
     <ClInclude Include="custom_types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="frame_buffer_example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
