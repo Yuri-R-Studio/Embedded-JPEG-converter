@@ -22,7 +22,7 @@ extern "C" {
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include "custom_types.h"
 #else
 #include "esp_camera.h"

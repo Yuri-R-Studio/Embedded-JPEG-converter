@@ -13,7 +13,7 @@
 // limitations under the License.
 #include "esp_jpg_decode.h"
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include "tjpgd.h"
 #include "custom_types.h"
 static const char* TAG = "esp_jpg_decode";

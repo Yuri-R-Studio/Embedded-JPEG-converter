@@ -7,7 +7,7 @@
 // v1.04, May. 19, 2012: Forgot to set m_pFile ptr to NULL in cfile_stream::close(). Thanks to Owen Kaluza for reporting this bug.
 //                       Code tweaks to fix VS2008 static code analysis warnings (all looked harmless).
 //                       Code review revealed method load_block_16_8_8() (used for the non-default H2V1 sampling mode to downsample chroma) somehow didn't get the rounding factor fix from v1.02.
-#ifdef WINDOWS
+#ifdef _WIN32
 #include "jpge.h"
 #else
 #include "include/jpge.h"
@@ -32,7 +32,7 @@ namespace jpge {
         if(b){
             return b;
         }
-#ifdef WINDOWS
+#ifdef _WIN32
         return malloc(nSize);
 #else
         return heap_caps_malloc(nSize, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);

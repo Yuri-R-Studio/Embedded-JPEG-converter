@@ -25,7 +25,7 @@
 #include "yuv.h"
 #include "esp_jpg_decode.h"
 
-#ifdef WINDOWS
+#ifdef _WIN32
 static const char* TAG = "to_bmp";
 #else
 #if defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_ARDUHAL_ESP_LOG)
@@ -66,7 +66,7 @@ typedef struct {
 
 static void *_malloc(size_t size)
 {
-#ifdef WINDOWS
+#ifdef _WIN32
     return malloc(size);
 #else
     return heap_caps_malloc(size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);

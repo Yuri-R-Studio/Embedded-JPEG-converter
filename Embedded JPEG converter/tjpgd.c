@@ -872,7 +872,7 @@ JRESULT jd_prepare (
 			/* Allocate working buffer for MCU and RGB */
 			n = jd->msy * jd->msx;						/* Number of Y blocks in the MCU */
 			if (!n) return JDR_FMT1;					/* Err: SOF0 has not been loaded */
-			len = n * 64 * 2 + 64;						/* Allocate buffer for IDCT and RGB output */
+			len = n * 64 * 2 + 64;						/* Allocate buffer for IDCT and RGB output */ // <--- Fix Me Yuri! Here where the ESP32 doesn't have memory
 			if (len < 256) len = 256;					/* but at least 256 byte is required for IDCT */
 			jd->workbuf = alloc_pool(jd, len);			/* and it may occupy a part of following MCU working buffer for RGB output */
 			if (!jd->workbuf) return JDR_MEM1;			/* Err: not enough memory */

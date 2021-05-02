@@ -15,6 +15,7 @@ int main()
     imageTest.len = sizeof(rgb_image_bin);
     imageTest.buf = (uint8_t *)rgb_image_bin;
 
+    remove ("output.jpeg");
 
     if (file == nullptr)
         if ((file = fopen("output.jpeg","wb")) == NULL)

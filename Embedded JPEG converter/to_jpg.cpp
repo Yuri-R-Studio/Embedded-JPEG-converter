@@ -17,7 +17,7 @@
 #include "jpge.h"
 #include "yuv.h"
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include "custom_types.h"
 static const char* TAG = "to_jpg";
 #else
@@ -52,7 +52,7 @@ static void *_malloc(size_t size)
     if(res) {
         return res;
     }
-#ifdef WINDOWS
+#ifdef _WIN32
     return malloc(size);
 #else
     return heap_caps_malloc(size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
@@ -60,7 +60,7 @@ static void *_malloc(size_t size)
 
 }
 
-#ifdef WINDOWS
+#ifdef _WIN32
 static void convert_line_format(uint8_t * src, pixformat_t format, uint8_t * dst, size_t width, size_t in_channels, size_t line)
 #else
 static IRAM_ATTR void convert_line_format(uint8_t * src, pixformat_t format, uint8_t * dst, size_t width, size_t in_channels, size_t line)
