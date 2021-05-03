@@ -142,6 +142,7 @@
     <ClCompile Include="esp_jpg_decode.c" />
     <ClCompile Include="jpge.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TinyJpegTool.cpp" />
     <ClCompile Include="tjpgd.c" />
     <ClCompile Include="to_bmp.c" />
     <ClCompile Include="to_jpg.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="frame_buffer_example.h" />
     <ClInclude Include="img_converters.h" />
     <ClInclude Include="jpge.h" />
+    <ClInclude Include="TinyJpegTool.h" />
     <ClInclude Include="tjpgd.h" />
     <ClInclude Include="yuv.h" />
   </ItemGroup>

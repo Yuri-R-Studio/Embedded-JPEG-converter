@@ -36,6 +36,9 @@
     <ClCompile Include="esp_jpg_decode.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TinyJpegTool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="img_converters.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="frame_buffer_example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyJpegTool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
