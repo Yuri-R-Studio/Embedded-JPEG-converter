@@ -75,7 +75,7 @@ static uint32_t _jpg_write(JDEC *decoder, void *bitmap, JRECT *rect)
     return 0;
 }
 
-static uint32_t _jpg_read(JDEC *decoder, uint8_t *buf, uint32_t len)
+static uint16_t _jpg_read(JDEC *decoder, uint8_t *buf, uint16_t len)
 {
     esp_jpg_decoder_t * jpeg = (esp_jpg_decoder_t *)decoder->device;
     if (jpeg->len && len > (jpeg->len - jpeg->index)) {

@@ -55,6 +55,7 @@ int main()
     size_t result = fread(jpegFile, 1, fileSize, file);
 
     static uint8_t result888[640*480*3];
+    memset(result888, 0, 640*480*3);
 
     fmt2rgb888(jpegFile, fileSize, pixformat_t::PIXFORMAT_JPEG, result888);
     

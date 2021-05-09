@@ -62,7 +62,7 @@ struct JDEC {
 	uint8_t* mcubuf;			/* Working buffer for the MCU */
 	void* pool;					/* Pointer to available memory pool */
 	uint16_t sz_pool;			/* Size of momory pool (bytes available) */
-	uint32_t (*infunc)(JDEC*, uint8_t*, uint16_t);/* Pointer to jpeg stream input function */
+	uint16_t (*infunc)(JDEC*, uint8_t*, uint16_t);/* Pointer to jpeg stream input function */
 	void* device;				/* Pointer to I/O device identifiler for the session */
 };
 
