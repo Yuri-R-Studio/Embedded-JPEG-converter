@@ -1,0 +1,7 @@
+To-Do list:
+
+- Uncompress the Jpeg picture
+- Read the struct JDEC from the picture
+- Compress the image byte array using the JDEC
+- Seek the right possition in the Jpeg array and replace the compressed pixels with the just compressed image
+- Close up the file
