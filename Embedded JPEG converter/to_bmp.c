@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <string.h>
 #include "img_converters.h"
+#include "tjpgd.h"
 
 #ifndef WINDOWS
 #include "esp_spiram.h"
@@ -179,6 +180,31 @@ bool jpg2bmp(const uint8_t *src, size_t src_len, uint8_t ** out, size_t * out_le
     *out = jpeg.output;
     *out_len = output_size+BMP_HEADER_LEN;
 
+    return true;
+}
+
+bool get_jpeg_decoder(const uint8_t *src, size_t src_len, jpg_scale_t scale, JDEC* jdec_out)
+{
+    rgb_jpg_decoder jpeg;
+    jpeg.width = 0;
+    jpeg.height = 0;
+    jpeg.input = src;
+    jpeg.data_offset = 0;
+
+    if(esp_get_jpg_decode(src_len, scale, _jpg_read, _rgb_write, (void*)&jpeg, jdec_out, src) != ESP_OK){
+        return false;
+    }
+    return true;
+}
+
+bool combine_jpeg(const uint8_t *jpeg1_buf, size_t jpeg1_len, const uint8_t *jpeg2_buf, size_t jpeg2_len)
+{
+    JDEC jdec;
+    if (get_jpeg_decoder(jpeg1_buf, jpeg1_len, JPG_SCALE_NONE, &jdec) == false)
+    {
+        printf("Error!!!!!\n");
+        return false;
+    }
     return true;
 }
 

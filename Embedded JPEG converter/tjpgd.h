@@ -64,6 +64,9 @@ struct JDEC {
 	uint16_t sz_pool;			/* Size of momory pool (bytes available) */
 	uint16_t (*infunc)(JDEC*, uint8_t*, uint16_t);/* Pointer to jpeg stream input function */
 	void* device;				/* Pointer to I/O device identifiler for the session */
+	uint8_t* quantization_table[2]; /* Pointer to the quantization tables */
+	uint8_t* jpeg_pointer;
+	uint8_t* image_data;
 };
 
 

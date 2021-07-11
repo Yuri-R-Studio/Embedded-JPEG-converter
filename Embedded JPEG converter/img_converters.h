@@ -21,6 +21,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "esp_jpg_decode.h"
 
 #ifdef _WIN32
 #include "custom_types.h"
@@ -58,7 +59,7 @@ bool fmt2jpg_cb(uint8_t *src, size_t src_len, uint16_t width, uint16_t height, p
  *
  * @return true on success
  */
-bool frame2jpg_cb(camera_fb_t * fb, uint8_t quality, jpg_out_cb cb, void * arg);
+bool frame2jpg_cb(camera_fb_t * fb, uint8_t quality, jpg_out_cb cb, void * arg, void * jdec);
 
 /**
  * @brief Convert image buffer to JPEG buffer
@@ -125,6 +126,8 @@ bool frame2bmp(camera_fb_t * fb, uint8_t ** out, size_t * out_len);
  * @return true on success
  */
 bool fmt2rgb888(const uint8_t *src_buf, size_t src_len, pixformat_t format, uint8_t * rgb_buf);
+
+bool get_jpeg_decoder(const uint8_t *src, size_t src_len, jpg_scale_t scale, JDEC* jdec);
 
 #ifdef __cplusplus
 }

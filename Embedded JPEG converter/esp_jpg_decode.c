@@ -91,11 +91,36 @@ static uint16_t _jpg_read(JDEC *decoder, uint8_t *buf, uint16_t len)
     return len;
 }
 
+esp_err_t esp_get_jpg_decode(size_t len, jpg_scale_t scale, jpg_reader_cb reader, jpg_writer_cb writer, void* arg, JDEC* decoder_output, uint8_t* jpegBuffer)
+{
+    static uint8_t work[3100];
+    JDEC decoder;
+    esp_jpg_decoder_t jpeg;
+    memset(&jpeg, 0, sizeof(esp_jpg_decoder_t));
+
+    jpeg.len = len;
+    jpeg.reader = reader;
+    jpeg.writer = writer;
+    jpeg.arg = arg;
+    jpeg.scale = scale;
+    jpeg.index = 0;
+    decoder.jpeg_pointer = jpegBuffer;
+    JRESULT jres = jd_prepare(&decoder, _jpg_read, work, 3100, &jpeg);
+    if(jres != JDR_OK){
+        ESP_LOGE(TAG, "JPG Header Parse Failed! %s", jd_errors[jres]);
+        return ESP_FAIL;
+    }
+    memcpy(decoder_output, &decoder, sizeof(JDEC));
+    return ESP_OK;
+}
+
 esp_err_t esp_jpg_decode(size_t len, jpg_scale_t scale, jpg_reader_cb reader, jpg_writer_cb writer, void * arg)
 {
     static uint8_t work[3100];
     JDEC decoder;
     esp_jpg_decoder_t jpeg;
+    memset(&jpeg, 0, sizeof(esp_jpg_decoder_t));
+    memset(&decoder, 0, sizeof(JDEC));
 
     jpeg.len = len;
     jpeg.reader = reader;

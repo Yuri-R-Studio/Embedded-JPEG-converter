@@ -109,7 +109,7 @@ static IRAM_ATTR void convert_line_format(uint8_t * src, pixformat_t format, uin
     }
 }
 
-bool convert_image(uint8_t *src, uint16_t width, uint16_t height, pixformat_t format, uint8_t quality, jpge::output_stream *dst_stream)
+bool convert_image(uint8_t *src, uint16_t width, uint16_t height, pixformat_t format, uint8_t quality, jpge::output_stream *dst_stream, JDEC * jdec = nullptr)
 {
     int num_channels = 3;
     jpge::subsampling_t subsampling = jpge::H2V2;
@@ -130,6 +130,11 @@ bool convert_image(uint8_t *src, uint16_t width, uint16_t height, pixformat_t fo
     comp_params.m_quality = quality;
 
     jpge::jpeg_encoder dst_image;
+
+    if (jdec != nullptr)
+    {
+        dst_image.config_quantisation_table(quality, jdec->quantization_table[0], jdec->quantization_table[1]);
+    }
 
     if (!dst_image.init(dst_stream, width, height, num_channels, comp_params)) {
         ESP_LOGE(TAG, "JPG encoder init failed");
@@ -180,15 +185,15 @@ public:
     }
 };
 
-bool fmt2jpg_cb(uint8_t *src, size_t src_len, uint16_t width, uint16_t height, pixformat_t format, uint8_t quality, jpg_out_cb cb, void * arg)
+bool fmt2jpg_cb(uint8_t *src, size_t src_len, uint16_t width, uint16_t height, pixformat_t format, uint8_t quality, jpg_out_cb cb, void * arg, JDEC * jdec)
 {
     callback_stream dst_stream(cb, arg);
-    return convert_image(src, width, height, format, quality, &dst_stream);
+    return convert_image(src, width, height, format, quality, &dst_stream, jdec);
 }
 
-bool frame2jpg_cb(camera_fb_t * fb, uint8_t quality, jpg_out_cb cb, void * arg)
+bool frame2jpg_cb(camera_fb_t * fb, uint8_t quality, jpg_out_cb cb, void * arg, void * jdec)
 {
-    return fmt2jpg_cb(fb->buf, fb->len, fb->width, fb->height, fb->format, quality, cb, arg);
+    return fmt2jpg_cb(fb->buf, fb->len, fb->width, fb->height, fb->format, quality, cb, arg, (JDEC *)jdec);
 }
 
 

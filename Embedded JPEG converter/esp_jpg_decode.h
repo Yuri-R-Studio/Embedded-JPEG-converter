@@ -21,6 +21,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "tjpgd.h"
 
 typedef enum {
     JPG_SCALE_NONE,
@@ -34,6 +35,7 @@ typedef size_t (* jpg_reader_cb)(void * arg, size_t index, uint8_t *buf, size_t 
 typedef bool (* jpg_writer_cb)(void * arg, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t *data);
 
 int esp_jpg_decode(size_t len, jpg_scale_t scale, jpg_reader_cb reader, jpg_writer_cb writer, void * arg);
+int esp_get_jpg_decode(size_t len, jpg_scale_t scale, jpg_reader_cb reader, jpg_writer_cb writer, void* arg, JDEC* decoder, uint8_t* jpegBuffer);
 
 #ifdef __cplusplus
 }

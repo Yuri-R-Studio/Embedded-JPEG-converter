@@ -756,6 +756,7 @@ JRESULT jd_prepare (
 	uint32_t ofs;
 	uint16_t n, i, j, len;
 	JRESULT rc;
+	uint8_t quantization_table_index = 0;
 
 
 	if (!pool) return JDR_PAR;
@@ -838,6 +839,13 @@ JRESULT jd_prepare (
 			break;
 
 		case 0xDB:	/* DQT */
+			// jd->quantization_table[quantization_table_index++] = (ofs + jd->);
+			// memcpy(&jd->quantization_table[quantization_table_index++][0], jd->input, 64);
+			// if (jd->jpeg_pointer != 0)
+			// 	memcpy(&jd->quantization_table[quantization_table_index++][0], jd->jpeg_pointer + ofs - len + 1, 64);
+			if (jd->jpeg_pointer != 0)
+				jd->quantization_table[quantization_table_index++] = jd->jpeg_pointer + ofs - len + 1;
+			
 			/* Load segment data */
 			if (len > JD_SZBUF) return JDR_MEM2;
 			if (jd->infunc(jd, seg, len) != len) return JDR_INP;
@@ -885,6 +893,8 @@ JRESULT jd_prepare (
 				jd->dctr = jd->infunc(jd, seg + ofs, (uint16_t)(JD_SZBUF - ofs));
 				jd->dptr = seg + ofs - 1;
 			}
+
+			//here
 
 			return JDR_OK;		/* Initialization succeeded. Ready to decompress the JPEG image. */
 

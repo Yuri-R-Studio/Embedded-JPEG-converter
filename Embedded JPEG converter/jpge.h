@@ -73,10 +73,11 @@ namespace jpge
             // Deinitializes the compressor, freeing any allocated memory. May be called at any time.
             void deinit();
 
+            void config_quantisation_table(int32 quality, uint8* quantization_table0, uint8* quantization_table1);
+
         private:
             jpeg_encoder(const jpeg_encoder &);
             jpeg_encoder &operator =(const jpeg_encoder &);
-
             typedef int32 sample_array_t;
             enum { JPGE_OUT_BUF_SIZE = 512 };
 
@@ -93,6 +94,20 @@ namespace jpge
             uint8 m_mcu_y_ofs;
             sample_array_t m_sample_array[64];
             int16 m_coefficient_array[64];
+
+            bool m_huff_initialized = false;
+            uint m_huff_codes[4][256];
+            uint8 m_huff_code_sizes[4][256];
+            uint8 m_huff_bits[4][17];
+            uint8 m_huff_val[4][256];
+            int32 m_last_quality = 0;
+            int32 m_quantization_tables[2][64];
+
+            /*
+                uint8_t* huffbits[2][2];	// Huffman bit distribution tables [id][dcac]
+	            uint16_t* huffcode[2][2];	// Huffman code word tables [id][dcac]
+	            uint8_t* huffdata[2][2];	// Huffman decoded data tables [id][dcac]
+            */
 
             int m_last_dc_val[3];
             uint8 m_out_buf[JPGE_OUT_BUF_SIZE];
